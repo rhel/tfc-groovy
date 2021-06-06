@@ -50,7 +50,7 @@ class TFCClient {
         StandardCharsets.UTF_8
       )
     )
-    echo obj
+    echo obj.data.id
     return new TFCOrganization('example')
   }
 }
