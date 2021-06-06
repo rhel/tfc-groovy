@@ -8,6 +8,6 @@ class TFCOrganization {
 
   protected final String name
   TFCOrganization(String name) {
-    this.Name = name
+    this.name = name
   }
 }
