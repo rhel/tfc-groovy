@@ -39,14 +39,14 @@ class TFCClient {
     if (httpResponse.statusLine.statusCode != HttpStatus.SC_OK) {
       throw new Exception(
         IOUtils.toString(
-          httpResponse.entry.content,
+          httpResponse.entity.content,
           StandardCharsets.UTF_8
         )
       )
     }
     jsonSlurper = new JsonSlurper()
     Map responseObject = jsonSlurper.parseText(IOUtils.toString(
-      httpResponse.entry.content,
+      httpResponse.entity.content,
       StandardCharsets.UTF_8
     ))
     return new TFCOrganization('example')
