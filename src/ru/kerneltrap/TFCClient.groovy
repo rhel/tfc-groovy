@@ -26,6 +26,7 @@ class TFCClient {
     HttpClient httpClient
     HttpGet httpGet
     HttpResponse httpResponse
+    JsonSlurper jsonSlurper
 
     Preconditions.checkArgument(bearerToken != null && !bearerToken.empty, 'bearerToken must not be null or empty')
     Preconditions.checkArgument(name != null && !name.empty, 'name must not be null or empty')
@@ -35,15 +36,18 @@ class TFCClient {
     httpGet.setHeader('Authorization', sprintf('Bearer %s', bearerToken))
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
     httpResponse = httpClient.execute(httpGet)
+    jsonSlurper = new JsonSlurper()
     if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-      throw new RuntimeException(
+      Map object = jsonSlurper.parseText(
         IOUtils.toString(
           httpResponse.getEntity().getContent(),
           StandardCharsets.UTF_8
         )
       )
+      throw new RuntimeException(
+        sprintf("HTTP Status Code: %s %s", object.errors.status, object.errors.title)
+      )
     }
     return new TFCOrganization('example')
   }
-
 }
