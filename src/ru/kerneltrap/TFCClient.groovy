@@ -38,7 +38,7 @@ class TFCClient {
     if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
       throw new RuntimeException(
         IOUtils.toString(
-          httpResponse.getStatusLine().getContent(), 
+          httpResponse.getStatusLine().getEntity().getContent(),
           StandardCharsets.UTF_8
         )
       )
