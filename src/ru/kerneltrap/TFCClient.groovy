@@ -45,11 +45,11 @@ class TFCClient {
       )
     }
     jsonSlurper = new JsonSlurper()
-    Map responseObject = jsonSlurper.parseText(IOUtils.toString(
+    Object object = jsonSlurper.parseText(IOUtils.toString(
       httpResponse.entity.content,
       StandardCharsets.UTF_8
     ))
-    echo responseObject
+    println object.dump()
     return new TFCOrganization('example')
   }
 }
