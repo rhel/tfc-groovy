@@ -1,37 +1,43 @@
 #!/usr/bin/env groovy
-
 package ru.kerneltrap
 
 import com.google.common.base.Preconditions
-import groovy.json.JsonBuilder
-import java.nio.charset.StandardCharsets
-import org.apache.http.HttpEntity
+//import groovy.json.JsonBuilder
+//import java.nio.charset.StandardCharsets
+import org.apache.commons.httpclient.HttpStatus
+//import org.apache.http.HttpEntity
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
 import org.apache.http.client.methods.HttpGet
-import org.apache.http.entity.ByteArrayEntity
 import org.apache.http.impl.client.DefaultHttpClient
-import org.apache.http.util.EntityUtils
+
+//import org.apache.http.util.EntityUtils
 
 class TFCClient {
 
-  protected final String baseURL = "https://app.terraform.io/api/v2"
+  protected final String baseURL = 'https://app.terraform.io/api/v2'
   protected final String bearerToken
   TFCClient(String bearerToken) {
     this.bearerToken = bearerToken
   }
 
   TFCOrganization getOrganization(String name) {
-    Preconditions.checkArgument(bearerToken != null && !bearerToken.empty, "bearerToken must not be null or empty")
-    Preconditions.checkArgument(name != null && !name.empty, "name must not be null or empty")
+    HttpClient httpClient
+    HttpGet httpGet
+    HttpResponse httpResponse
 
-    HttpClient httpClient = new DefaultHttpClient()
-    HttpGet httpGet = new HttpGet(
-      sprintf("%s/organizations/%s", baseURL, name)
-    )
+    Preconditions.checkArgument(bearerToken != null && !bearerToken.empty, 'bearerToken must not be null or empty')
+    Preconditions.checkArgument(name != null && !name.empty, 'name must not be null or empty')
+
+    httpClient = new DefaultHttpClient()
+    httpGet = new HttpGet(sprintf('%s/organizations/%s', baseURL, name))
     httpGet.setHeader('Authorization', sprintf('Bearer %s', bearerToken))
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
-    HttpResponse httpResponse = httpClient.execute(httpGet)
+    httpResponse = httpClient.execute(httpGet)
+    if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+      throw new RuntimeException(httpResponse.getStatusLine().getStatusCode())
+    }
     return new TFCOrganization('example')
   }
+
 }
