@@ -35,7 +35,7 @@ class TFCClient {
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
     httpResponse = httpClient.execute(httpGet)
     if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-      throw new RuntimeException(httpResponse.getStatusLine().getStatusCode())
+      throw new RuntimeException(httpResponse.getStatusLine().getStatusCode().toString())
     }
     return new TFCOrganization('example')
   }
