@@ -6,7 +6,7 @@ import com.google.common.base.Preconditions
 
 class TFCOrganization {
 
-  public static final String Name
+  public final String Name
   TFCOrganization(String name) {
     this.Name = name
   }
