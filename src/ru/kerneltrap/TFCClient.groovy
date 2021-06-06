@@ -1,4 +1,4 @@
-h#!/usr/bin/env groovy
+#!/usr/bin/env groovy
 
 package ru.kerneltrap
 
