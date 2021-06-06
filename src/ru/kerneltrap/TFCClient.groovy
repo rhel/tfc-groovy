@@ -49,6 +49,7 @@ class TFCClient {
       httpResponse.entity.content,
       StandardCharsets.UTF_8
     ))
+    echo responseObject
     return new TFCOrganization('example')
   }
 }
