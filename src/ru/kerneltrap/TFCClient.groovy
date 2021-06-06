@@ -38,14 +38,11 @@ class TFCClient {
     httpResponse = httpClient.execute(httpGet)
     jsonSlurper = new JsonSlurper()
     if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-      Map object = jsonSlurper.parseText(
+      throw new RuntimeException(
         IOUtils.toString(
           httpResponse.getEntity().getContent(),
           StandardCharsets.UTF_8
         )
-      )
-      throw new RuntimeException(
-        sprintf("HTTP Status Code: %s %s", object.errors.status, object.errors.title)
       )
     }
     return new TFCOrganization('example')
