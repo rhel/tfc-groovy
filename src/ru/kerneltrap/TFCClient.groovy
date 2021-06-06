@@ -36,15 +36,19 @@ class TFCClient {
     httpGet.setHeader('Authorization', sprintf('Bearer %s', bearerToken))
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
     httpResponse = httpClient.execute(httpGet)
-    jsonSlurper = new JsonSlurper()
-    if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-      throw new RuntimeException(
+    if (httpResponse.statusLine.statusCode != HttpStatus.SC_OK) {
+      throw new Exception(
         IOUtils.toString(
-          httpResponse.getEntity().getContent(),
+          httpResponse.entry.content,
           StandardCharsets.UTF_8
         )
       )
     }
+    jsonSlurper = new JsonSlurper()
+    Map responseObject = jsonSlurper.parseText(IOUtils.toString(
+      httpResponse.entry.content,
+      StandardCharsets.UTF_8
+    ))
     return new TFCOrganization('example')
   }
 }
