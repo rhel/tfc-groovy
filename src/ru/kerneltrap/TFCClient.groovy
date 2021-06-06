@@ -49,7 +49,7 @@ class TFCClient {
       httpResponse.entity.content,
       StandardCharsets.UTF_8
     ))
-    println object.dump()
+    println object
     return new TFCOrganization('example')
   }
 }
