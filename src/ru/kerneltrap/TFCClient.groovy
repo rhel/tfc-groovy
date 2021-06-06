@@ -3,8 +3,9 @@ package ru.kerneltrap
 
 import com.google.common.base.Preconditions
 //import groovy.json.JsonBuilder
-//import java.nio.charset.StandardCharsets
+import java.nio.charset.StandardCharsets
 import org.apache.commons.httpclient.HttpStatus
+import org.apache.commons.io.IOUtils
 //import org.apache.http.HttpEntity
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
@@ -35,7 +36,12 @@ class TFCClient {
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
     httpResponse = httpClient.execute(httpGet)
     if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-      throw new RuntimeException(httpResponse.getStatusLine().getStatusCode().toString())
+      throw new RuntimeException(
+        IOUtils.toString(
+          httpResponse.getStatusLine().getContent(), 
+          StandardCharsets.UTF_8
+        )
+      )
     }
     return new TFCOrganization('example')
   }
