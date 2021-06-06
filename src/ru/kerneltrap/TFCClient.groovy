@@ -2,7 +2,7 @@
 package ru.kerneltrap
 
 import com.google.common.base.Preconditions
-//import groovy.json.JsonBuilder
+import groovy.json.JsonBuilder
 import java.nio.charset.StandardCharsets
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.io.IOUtils
