@@ -22,8 +22,8 @@ class TFCClient {
   }
 
   TFCOrganization getOrganization(String name) {
-    Preconditions.checkArgument(bearerToken != null && !bearerToken.empty(), "bearerToken must not be null or empty")
-    Preconditions.checkArgument(name != null && !name.empty(), "name must not be null or empty")
+    Preconditions.checkArgument(bearerToken != null && !bearerToken.empty, "bearerToken must not be null or empty")
+    Preconditions.checkArgument(name != null && !name.empty, "name must not be null or empty")
 
     HttpClient httpClient = new DefaultHttpClient()
     HttpGet httpGet = new HttpGet(
