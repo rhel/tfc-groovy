@@ -31,9 +31,7 @@ class TFCClient {
     )
     httpGet.setHeader('Authorization', sprintf('Bearer %s', bearerToken))
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
-    //HttpEntity httpEntity = new ByteArrayEntity(payload)
-    //httpPatch.setEntity(httpEntity)
-    //HttpResponse httpResponse = httpClient.execute(httpPatch)
+    HttpResponse httpResponse = httpClient.execute(httpGet)
     return TFCOrganization('example')
   }
 }
