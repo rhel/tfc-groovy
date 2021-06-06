@@ -32,6 +32,6 @@ class TFCClient {
     httpGet.setHeader('Authorization', sprintf('Bearer %s', bearerToken))
     httpGet.setHeader('Content-Type', 'application/vnd.api+json')
     HttpResponse httpResponse = httpClient.execute(httpGet)
-    return TFCOrganization('example')
+    return new TFCOrganization('example')
   }
 }
